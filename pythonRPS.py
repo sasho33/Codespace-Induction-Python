@@ -1,57 +1,42 @@
 import random
+from turtle import goto
 
-yourScore = 0
-opponentScore = 0
-
-while True:
-    selection = ["rock", "paper", "scissors"]
-
-    opponent = random.choice(selection)
-    player = None
-
-    while player not in selection:
-        player = input("rock, paper, scissors?: ").lower().strip()
-
-    if player == opponent:
-        print("Both players selected", player, ". It's a tie!")
-
-    elif player == "rock":
-        if opponent == "paper":
-            print("You chose", player, ", computer chose", opponent)
-            print("Paper covers rock! You lose.")
-            opponentScore += 1
-
-        elif opponent == "scissors":
-            print("You chose", player, ", computer chose", opponent)
-            print("Rock smashes scissors! You win.")
-            yourScore += 1
-
-    elif player == "paper":
-        if opponent == "rock":
-            print("You chose", player, ", computer chose", opponent)
-            print("Paper covers rock! You win.")
-            yourScore += 1
-        elif opponent == "scissors":
-            print("You chose", player, ", computer chose", opponent)
-            print("Scissors cut paper! You lose.")
-            opponentScore += 1
-        
-    elif player == "scissors":
-        if opponent == "rock":
-            print("You chose", player, ", computer chose", opponent)
-            print("Rock smashes scissors! You lose.")
-            opponentScore += 1
-
-        elif opponent == "paper":
-            print("You chose", player, ", computer chose", opponent)
-            print("Scissors cut paper! You win.")
-            yourScore += 1
-
-    newGame = input("Play again? (y/n): ").lower()
+def Game(inputValue):
+    #computer choise
+    randC=random.randint(0,2)
+    combinations=["Rock", "Paper", "Scissors"]
+    compChoice = combinations[randC]
     
-    if newGame == "n":
-        break
+    playerChoice = None
+# player choice
+    if inputValue == "r":
+        playerChoice=combinations[0]
+    elif inputValue =="p":
+        playerChoice=combinations[1]
+    elif inputValue =="s":
+        playerChoice=combinations[2]
+    else:   
+        print("Invalid input")
+        moreGame=(input("One more game to play (Y or N)"))
+        if moreGame == "y" or "Y":
+            Game(input("Enter a choice (Rock(r), Paper(p), Scissors(s))"))
+        else:
+            exit()
 
-print("Final Scores:")
-print("Computer:", opponentScore)
-print("Player", yourScore)
+# game logic
+    if playerChoice == compChoice:
+        print("Draw!")
+    else:
+        if playerChoice=="Rock" and compChoice=="Paper" or playerChoice=="Paper" and compChoice=="Scissors":
+            print(f"You lost! Player choose {playerChoice}  and computer choose {compChoice}")
+        else: 
+            print(f"You Won! Player choose {playerChoice}  and computer choose {compChoice}")
+
+    moreGame=(input("One more game to play (Y or N)"))
+    if moreGame == "y" or "Y":
+        Game(input("Enter a choice (Rock(r), Paper(p), Scissors(s))"))
+    else:
+        exit()
+
+    
+Game(input("Enter a choice (Rock(r), Paper(p), Scissors(s))"))
